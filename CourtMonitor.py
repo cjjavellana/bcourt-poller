@@ -2,9 +2,18 @@
 
 import urllib.request,urllib.parse
 from bs4 import BeautifulSoup
+from twitter import *
 from package import *
 
 #Setup the request parameters
+play_date = '14/7/2013'
+validate_hidden_date = '7/14/2013'
+start_time_hh = '04'
+start_time_mm = '00'
+start_time_meridian = 'PM'
+end_time_hh = '06'
+end_time_mm = '00'
+end_time_meridian = 'PM'
 
 #Activity 18 - Badminton,Venue 542 - Pasir Ris 
 req_params = urllib.parse.urlencode({'ctl00$ScriptManager1':'ctl00$ContentPlaceHolder1$updPnlAvailabilityCheck|ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$btnSearch',\
@@ -12,16 +21,16 @@ req_params = urllib.parse.urlencode({'ctl00$ScriptManager1':'ctl00$ContentPlaceH
 'ctl00$wctrlLogin$Login1$Password':'',\
 'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$ddlActivity':'18',\
 'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$ddlVenue':'542',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$dateCtl$CalendarPopup1$textBox':'14/7/2013',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$dateCtl$CalendarPopup1$hidden':'14/7/2013',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$dateCtl$CalendarPopup1$validateHidden':'7/14/2013',\
+'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$dateCtl$CalendarPopup1$textBox':play_date,\
+'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$dateCtl$CalendarPopup1$hidden':play_date,\
+'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$dateCtl$CalendarPopup1$validateHidden':validate_hidden_date,\
 'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$dateCtl$CalendarPopup1$enableHidden':'true',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlStart$ddlHour':'04',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlStart$ddlMin':'00',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlStart$ddlMeridian':'PM',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlEnd$ddlHour':'06',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlEnd$ddlMin':'00',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlEnd$ddlMeridian':'PM',\
+'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlStart$ddlHour': start_time_hh,\
+'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlStart$ddlMin': start_time_mm,\
+'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlStart$ddlMeridian': start_time_meridian,\
+'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlEnd$ddlHour': end_time_hh,\
+'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlEnd$ddlMin': end_time_mm,\
+'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlEnd$ddlMeridian':end_time_meridian,\
 'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfBookAdv':'',\
 'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfIsSuperiorSubscriber':'',\
 'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfVenueSubscriberType':'',\
@@ -80,10 +89,19 @@ f = urllib.request.urlopen(request, req_params)
 response = f.read().decode('utf-8');
 soup = BeautifulSoup(response.encode('utf-8'))
 result_table = soup.select('#ctl00_ContentPlaceHolder1_gvAvailabilityCheckResult tr')
+
+OAUTH_TOKEN = ''
+OAUTH_SECRET = ''
+CONSUMER_KEY = ''
+CONSUMER_SECRET = ''
+t = Twitter(auth=OAuth(OAUTH_TOKEN, OAUTH_SECRET, CONSUMER_KEY, CONSUMER_SECRET))
+
 for child in result_table :
     img_list = child.select('img');
-    if(len(img_list) > 0) :
-        
+    if(len(img_list) > 0 ) :        
         print(img_list[0]['title'])
         print('===============================')
+
+
+t.direct_messages.new(user='twitting4fun',text='first tweet from pi')
 
