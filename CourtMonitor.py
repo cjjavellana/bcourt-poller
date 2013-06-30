@@ -4,8 +4,9 @@ import urllib.request,urllib.parse
 from bs4 import BeautifulSoup
 from package import *
 
-#Activity 18 - Badminton,Venue 542 - Pasir Ris 
+#Setup the request parameters
 
+#Activity 18 - Badminton,Venue 542 - Pasir Ris 
 req_params = urllib.parse.urlencode({'ctl00$ScriptManager1':'ctl00$ContentPlaceHolder1$updPnlAvailabilityCheck|ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$btnSearch',\
 'ctl00$wctrlLogin$Login1$UserName':'',\
 'ctl00$wctrlLogin$Login1$Password':'',\
@@ -64,6 +65,7 @@ req_params = urllib.parse.urlencode({'ctl00$ScriptManager1':'ctl00$ContentPlaceH
 '__ASYNCPOST':'true',\
 'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$btnSearch':'Search'})
 
+#build the http request
 req_params = req_params.encode('utf-8');
 request = urllib.request.Request("http://www.icanbook.com.sg/icbnew/Facility/Public/UI/AvailabilityCheck.aspx")
 request.add_header("Content-Type","application/x-www-form-urlencoded;charset=utf-8")
@@ -71,8 +73,17 @@ request.add_header("Referer","http://www.icanbook.com.sg/icbnew/Facility/Public/
 request.add_header("User-Agent","Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.116 Safari/537.36")
 request.add_header("X-MicrosoftAjax","Delta=true")
 
+#open the connection
 f = urllib.request.urlopen(request, req_params)
-#print(f.read().decode('utf-8', errors='replace'))
+
+#Parse the response
 response = f.read().decode('utf-8');
 soup = BeautifulSoup(response.encode('utf-8'))
-print(soup.find(id='ctl00_ContentPlaceHolder1_gvAvailabilityCheckResult').prettify())
+result_table = soup.select('#ctl00_ContentPlaceHolder1_gvAvailabilityCheckResult tr')
+for child in result_table :
+    img_list = child.select('img');
+    if(len(img_list) > 0) :
+        
+        print(img_list[0]['title'])
+        print('===============================')
+
