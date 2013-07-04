@@ -90,10 +90,10 @@ response = f.read().decode('utf-8');
 soup = BeautifulSoup(response.encode('utf-8'))
 result_table = soup.select('#ctl00_ContentPlaceHolder1_gvAvailabilityCheckResult tr')
 
-OAUTH_TOKEN = ''
-OAUTH_SECRET = ''
-CONSUMER_KEY = ''
-CONSUMER_SECRET = ''
+OAUTH_TOKEN = '1558071919-2XMmBP4GSphhiaz2uOZpBZmMdFIj76qlQYB6Xry'
+OAUTH_SECRET = 'Ogs3MEmUF10wXcEG9mpMp9TpIlBXytVcyYEU2IqTtY'
+CONSUMER_KEY = 'uNN3wAoVE0CVKMQss1w'
+CONSUMER_SECRET = '6Ta6vHITkwbujGLVnIzb1XMjXqUXVhvKTz7VZ3s4sE'
 t = Twitter(auth=OAuth(OAUTH_TOKEN, OAUTH_SECRET, CONSUMER_KEY, CONSUMER_SECRET))
 
 for child in result_table :
@@ -102,6 +102,6 @@ for child in result_table :
         print(img_list[0]['title'])
         print('===============================')
 
-
+t.statuses.update(status="Using @sixohsix's sweet Python Twitter Tools.")
 t.direct_messages.new(user='twitting4fun',text='first tweet from pi')
 
