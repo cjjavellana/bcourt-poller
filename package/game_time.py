@@ -48,7 +48,7 @@ class TimeRange:
 
 '''
 '''
-class GameDayGenerator:
+class GameDateGenerator:
 
     def __init__(self):
 
@@ -65,7 +65,7 @@ class GameDayGenerator:
 
     
     '''
-    def get_game_days(self):
+    def get_game_date(self):
         
     
 
