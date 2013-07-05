@@ -102,6 +102,11 @@ for child in result_table :
         print(img_list[0]['title'])
         print('===============================')
 
-t.statuses.update(status="Using @sixohsix's sweet Python Twitter Tools.")
-t.direct_messages.new(user='twitting4fun',text='first tweet from pi')
+#t.statuses.update(status="Using @sixohsix's sweet Python Twitter Tools.")
+#t.direct_messages.new(user='twitting4fun',text='first tweet from pi')
 
+time_generator = TimeGenerator();
+date_generator = GameDateGenerator();
+
+print(time_generator.get_game_time_frame().start_time)
+print(date_generator.get_game_date())

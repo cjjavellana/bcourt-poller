@@ -4,7 +4,7 @@ import urllib.request
 import time
 from datetime import date
 
-class RequestBuilder:
+class HttpRequestBuilder:
     def __init__(self, game_date, start_time, end_time, start_time_meridian, end_time_meridian):
         self.game_date = game_date
         self.start_time = start_time

@@ -1,13 +1,12 @@
 #! /usr/bin/env python3.3
 
-import time
-from datetime import date
+from datetime import date,timedelta
 
 class TimeGenerator:
     '''
     Valid game time constants. We can only play from 9am - 5pm
     '''
-    valid_time_values = [9, 10, 11, 12, 13, 14, 15, 16,17]
+    valid_time_values = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
     
     def __init__(self):
         self.start_time_index = 0
@@ -18,12 +17,12 @@ class TimeGenerator:
     def get_game_time_frame(self):
         
         # Check if the index pointer is at the 2nd to the last position
-        if self.start_time_index == len(valid_time_values) - 2:
+        if self.start_time_index == len(self.valid_time_values) - 2:
            self.start_time_index = 0 
         
         #Create new TimeRange object
-        time_range = TimeRange(TimeGenerator.valid_time_values[self.start_time_index], \
-                               TimeGenerator.valid_time_values[self.start_time_index + 2])
+        time_range = TimeRange(self.valid_time_values[self.start_time_index], \
+                               self.valid_time_values[self.start_time_index + 2])
         
         #Move the index pointer 1 position forward
         self.start_time_index += 1
@@ -50,7 +49,9 @@ class TimeRange:
 '''
 class GameDateGenerator:
 
-    def __init__(self):
+    SATURDAY = 5;
+    SUNDAY = 6;
+   
 
     '''
     Returns a list containing the first and second saturdays and sundays from the current date.
@@ -62,11 +63,16 @@ class GameDateGenerator:
     07-07-2013
     13-07-2013
     14-07-2013
-
     
     '''
     def get_game_date(self):
+        date_list = list();
+        today = date.today()
         
-    
+        while len(date_list) < 4:
+            today = today + timedelta(days=1)
+            if today.weekday() == self.SATURDAY or today.weekday() == self.SUNDAY:
+                date_list.append(today);
 
-        
+        return date_list
+    
