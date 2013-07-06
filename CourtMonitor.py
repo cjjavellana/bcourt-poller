@@ -110,3 +110,7 @@ date_generator = GameDateGenerator();
 
 print(time_generator.get_game_time_frame().start_time)
 print(date_generator.get_game_date())
+
+venue_checker = VenueChecker(542)
+venue_checker.find_available_time()
+

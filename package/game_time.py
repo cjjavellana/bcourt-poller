@@ -46,6 +46,8 @@ class TimeRange:
 
 
 '''
+Identifies the dates of the first and second saturdays and sundays from the
+current date
 '''
 class GameDateGenerator:
 
@@ -72,6 +74,7 @@ class GameDateGenerator:
         while len(date_list) < 4:
             today = today + timedelta(days=1)
             if today.weekday() == self.SATURDAY or today.weekday() == self.SUNDAY:
+                print(today.strftime('%d/%m/%Y'));
                 date_list.append(today);
 
         return date_list
