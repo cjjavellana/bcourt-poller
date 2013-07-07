@@ -6,7 +6,7 @@ class TimeGenerator:
     '''
     Valid game time constants. We can only play from 9am - 5pm
     '''
-    valid_time_values = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+    valid_time_values = [8,9,10,11,12,13,14,15,16,17,18,19]
     
     def __init__(self):
         self.start_time_index = 0

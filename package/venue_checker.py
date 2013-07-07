@@ -2,7 +2,8 @@
 
 from package import GameDateGenerator
 from package import TimeGenerator
-from package import HttpRequestBuilder
+from package import RequestParamBuilder
+from package import ResponseParser
 
 import urllib.request,urllib.parse
 
@@ -21,12 +22,20 @@ class VenueChecker:
         date_gen = GameDateGenerator();
         game_dates = date_gen.get_game_date();
 
+        response_parser = ResponseParser()
+
+        slots = list()
+        
         time_gen = TimeGenerator();
         for game_date in game_dates:
             for x in range(9):
                 time_range = time_gen.get_game_time_frame()
-                request_builder = HttpRequestBuilder(game_date,time_range.start_time,time_range.end_time,self.location_code)
-                req_params = request_builder.build_http_request();
+
+                print('Checking ', self.location_code, '; Start Time: ', \
+                      str(time_range.start_time), '; End Time: ', str(time_range.end_time))
+                
+                request_builder = RequestParamBuilder(game_date,time_range.start_time,time_range.end_time,self.location_code)
+                req_params = request_builder.build_http_param();
 
                 #Build the http req 
                 request = urllib.request.Request("http://www.icanbook.com.sg/icbnew/Facility/Public/UI/AvailabilityCheck.aspx")
@@ -36,5 +45,10 @@ class VenueChecker:
                 request.add_header("X-MicrosoftAjax","Delta=true")
 
                 f = urllib.request.urlopen(request, req_params)
-                print(f)
-                
+                print('parsing response...')
+                avail_slots = response_parser.parse_response(f)
+                slots.append(avail_slots)
+
+
+        return slots
+

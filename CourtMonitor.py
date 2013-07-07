@@ -4,8 +4,10 @@ import urllib.request,urllib.parse
 from bs4 import BeautifulSoup
 from twitter import *
 from package import *
+from datetime import datetime
 
 #Setup the request parameters
+
 play_date = '14/7/2013'
 validate_hidden_date = '7/14/2013'
 start_time_hh = '04'
@@ -75,7 +77,7 @@ req_params = urllib.parse.urlencode({'ctl00$ScriptManager1':'ctl00$ContentPlaceH
 'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$btnSearch':'Search'})
 
 #build the http request
-req_params = req_params.encode('utf-8');
+req_params = req_params.encode('utf-8')
 request = urllib.request.Request("http://www.icanbook.com.sg/icbnew/Facility/Public/UI/AvailabilityCheck.aspx")
 request.add_header("Content-Type","application/x-www-form-urlencoded;charset=utf-8")
 request.add_header("Referer","http://www.icanbook.com.sg/icbnew/Facility/Public/UI/AvailabilityCheck.aspx")
@@ -86,7 +88,7 @@ request.add_header("X-MicrosoftAjax","Delta=true")
 f = urllib.request.urlopen(request, req_params)
 
 #Parse the response
-response = f.read().decode('utf-8');
+response = f.read().decode('utf-8')
 soup = BeautifulSoup(response.encode('utf-8'))
 result_table = soup.select('#ctl00_ContentPlaceHolder1_gvAvailabilityCheckResult tr')
 
@@ -97,20 +99,26 @@ CONSUMER_SECRET = '6Ta6vHITkwbujGLVnIzb1XMjXqUXVhvKTz7VZ3s4sE'
 t = Twitter(auth=OAuth(OAUTH_TOKEN, OAUTH_SECRET, CONSUMER_KEY, CONSUMER_SECRET))
 
 for child in result_table :
-    img_list = child.select('img');
-    if(len(img_list) > 0 ) :        
-        print(img_list[0]['title'])
+    img_list = child.select('td img')
+    if(len(img_list) > 0 ) :
+        court_num = child.select('td span')[0]
+        time_slot = child.select('td span')[1]
+        print(court_num.text + ' '+ time_slot.text + ' '+ img_list[0]['title'])
         print('===============================')
 
-#t.statuses.update(status="Using @sixohsix's sweet Python Twitter Tools.")
+
 #t.direct_messages.new(user='twitting4fun',text='first tweet from pi')
 
-time_generator = TimeGenerator();
-date_generator = GameDateGenerator();
+time_generator = TimeGenerator()
+date_generator = GameDateGenerator()
 
 print(time_generator.get_game_time_frame().start_time)
 print(date_generator.get_game_date())
 
-venue_checker = VenueChecker(542)
-venue_checker.find_available_time()
+today = datetime.today()
+
+#t.statuses.update(status="Checking for available court commencing at " + today.strftime("%d/%m/%Y %H:%M:%S"))
+print("Checking for available court commencing at " + today.strftime("%d/%m/%Y %H:%M:%S"))
+#venue_checker = VenueChecker('542')
+#venue_checker.find_available_time()
 
