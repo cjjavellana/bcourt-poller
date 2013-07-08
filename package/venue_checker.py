@@ -38,14 +38,16 @@ class VenueChecker:
                 req_params = request_builder.build_http_param();
 
                 #Build the http req 
-                request = urllib.request.Request("http://www.icanbook.com.sg/icbnew/Facility/Public/UI/AvailabilityCheck.aspx")
+                request = urllib.request.Request("http://www.icanbook.com.sg/icbnew/Facility/Public/UI/AvailabilityCheck.aspx", data=req_params, method='POST')
                 request.add_header("Content-Type","application/x-www-form-urlencoded;charset=utf-8")
+                request.add_header("Origin","http://www.icanbook.com.sg")
+                request.add_header("Cookie","BIGipServerweb_pool_http=JiiuKjZyI/MyXXUtsjus9dXCDEp3VECVjVNDuJP+RVWxYegxCVsdA92TaFnqkBHA6LIK/++0W6ioW04=; ASP.NET_SessionId=3x24ih45ozjftxeg5py0mb45; __utma=24707618.545845258.1373292469.1373292469.1373292469.1; __utmc=24707618; __utmz=24707618.1373292469.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)")
                 request.add_header("Referer","http://www.icanbook.com.sg/icbnew/Facility/Public/UI/AvailabilityCheck.aspx")
                 request.add_header("User-Agent","Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.116 Safari/537.36")
                 request.add_header("X-MicrosoftAjax","Delta=true")
 
-                f = urllib.request.urlopen(request, req_params)
-                print('parsing response...')
+                f = urllib.request.urlopen(request)
+                print('parsing response...', f.read().decode('utf-8'))
                 avail_slots = response_parser.parse_response(f)
                 slots.append(avail_slots)
 
