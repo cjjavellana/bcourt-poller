@@ -46,7 +46,6 @@ class VenueChecker:
                 request.add_header("X-MicrosoftAjax","Delta=true")
 
                 f = urllib.request.urlopen(request)
-                print('parsing response...', f.read().decode('utf-8'))
                 avail_slots = response_parser.parse_response(f)
                 slots.append(avail_slots)
 

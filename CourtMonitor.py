@@ -20,5 +20,9 @@ today = datetime.today()
 #t.statuses.update(status="Checking for available court commencing at " + today.strftime("%d/%m/%Y %H:%M:%S"))
 print("Checking for available court commencing at " + today.strftime("%d/%m/%Y %H:%M:%S"))
 venue_checker = VenueChecker('542')
-venue_checker.find_available_time()
+query_result = venue_checker.find_available_time()
+for result in query_result:
+    for available_court in result:
+        print(available_court.court_num, ' - ', available_court.time_slot, ' - ', available_court.status)
+
 

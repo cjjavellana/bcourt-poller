@@ -4,7 +4,7 @@ from datetime import date,timedelta
 
 class TimeGenerator:
     '''
-    Valid game time constants. We can only play from 9am - 5pm
+    Valid game time constants. We can only play from 9am - 7pm
     '''
     valid_time_values = [8,9,10,11,12,13,14,15,16,17,18,19]
     
@@ -18,7 +18,7 @@ class TimeGenerator:
         
         # Check if the index pointer is at the 2nd to the last position
         if self.start_time_index == len(self.valid_time_values) - 2:
-           self.start_time_index = 0 
+            self.start_time_index = 0 
         
         #Create new TimeRange object
         time_range = TimeRange(self.valid_time_values[self.start_time_index], \
@@ -74,7 +74,6 @@ class GameDateGenerator:
         while len(date_list) < 4:
             today = today + timedelta(days=1)
             if today.weekday() == self.SATURDAY or today.weekday() == self.SUNDAY:
-                print(today.strftime('%d/%m/%Y'));
                 date_list.append(today);
 
         return date_list

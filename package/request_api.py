@@ -1,7 +1,6 @@
 #! /usr/bin/env python3.3
 
 import urllib.request
-import time
 from datetime import date
 from bs4 import BeautifulSoup
 

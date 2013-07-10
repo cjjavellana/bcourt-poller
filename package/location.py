@@ -12,6 +12,6 @@ class LocationGenerator:
         self.location_index = 0
 
     def get_locations(self):
-        return LOCATION
+        return self.LOCATION
         
         
