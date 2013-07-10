@@ -15,7 +15,7 @@ class ResponseParser:
         soup = BeautifulSoup(response.encode('utf-8'))
         result_table = soup.select('#ctl00_ContentPlaceHolder1_gvAvailabilityCheckResult tr')
 
-        print(soup.prettify())
+        #print(soup.prettify())
 
         available_court = list();
         for child in result_table :

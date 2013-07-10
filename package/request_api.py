@@ -19,16 +19,14 @@ class RequestParamBuilder:
     def build_http_param(self):
         play_date = self.game_date.strftime('%d/%m/%Y')
         validate_hidden_date = self.game_date.strftime('%m/%d/%Y')
-        start_time_mm = '00'
-        end_time_mm = '00'
-
+       
         start_time_meridian = 'AM'
         end_time_meridian = 'AM'
 
         if self.start_time >= self.NOON:
             start_time_meridian = 'PM'
             if self.start_time > self.NOON:
-                self.start_time = self.start_time - self.NOON #Normalize
+                self.start_time = self.start_time - self.NOON  # Normalize
 
         if self.end_time >= self.NOON:
             end_time_meridian = 'PM'
@@ -42,73 +40,71 @@ class RequestParamBuilder:
             self.end_time = '0' + str(self.end_time)
         
         print('PlayDate: ', play_date, 'validate_hidden_date:', validate_hidden_date)
-        print('start_time: ',  self.start_time, 'end_time:', self.end_time)
+        print('start_time: ', self.start_time, 'end_time:', self.end_time)
         print('start_time_meridian: ', start_time_meridian, 'end_time_meridian:', end_time_meridian)
 
         request_token = RequestToken();
         request_token.get_request_tokens()
         
-        req_params = urllib.parse.urlencode({'ctl00$ScriptManager1':'ctl00$ContentPlaceHolder1$updPnlAvailabilityCheck|ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$btnSearch',\
-'ctl00$wctrlLogin$Login1$UserName':'',\
-'ctl00$wctrlLogin$Login1$Password':'',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$ddlActivity': self.GAME_BADMINTON,\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$ddlVenue': self.location_code,\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$dateCtl$CalendarPopup1$textBox':play_date,\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$dateCtl$CalendarPopup1$hidden':play_date,\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$dateCtl$CalendarPopup1$validateHidden':validate_hidden_date,\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$dateCtl$CalendarPopup1$enableHidden':'true',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlStart$ddlHour': self.start_time,\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlStart$ddlMin': '00',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlStart$ddlMeridian': start_time_meridian,\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlEnd$ddlHour': self.end_time,\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlEnd$ddlMin': '00',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlEnd$ddlMeridian':end_time_meridian,\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfBookAdv':'',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfIsSuperiorSubscriber':'',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfVenueSubscriberType':'',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfListSearchType':'ORD',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdRepSubscriberId':'',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdRepActivityId':'',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdRepSubscriberName':'',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdRepActivityName':'',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdIsReplacement':'',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdIsReplacementReload':'',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdRepBkgCancelledId':'',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfCriteriaNotMatch':'',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfIsBlacklistedHirerBook':'',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfEffDateFrom':'',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfEffDateTo':'',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfIsAdvHrBookingAllowed':'',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfLeadTimeAccess':'',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfSubscriberId':'',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfHirerAge':'',\
-'hidPrinterStatus':'',\
-'hidPrinterVerification':'',\
-'hidNetsStatus':'',\
-'hidNetsVerfication':'',\
-'hidEzlinkStatus':'',\
-'hidEzlinkVerification':'',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfHiredId':'',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfHirerType':'',\
-'ctl00$ContentPlaceHolder1$hdRblSelectedValue':'',\
-'ctl00$ContentPlaceHolder1$hidAvailTerminals':'',\
-'hidAvailTerminalsId':'ctl00_ContentPlaceHolder1_hidAvailTerminals',\
-'ctl00$RESET_SESSION':'NIL',\
-'ctl00$AccNm':'',\
-'ctl00$hdfErrMsgAJAX':'',\
-'__REFRESH_FIELD':'439da2a090068a55acc3954d1d300266',\
-'__EVENTTARGET':'',\
-'__EVENTARGUMENT':'',\
-'__LASTFOCUS':'',\
-'__VIEWSTATE':request_token.view_state,\
-'__PREVIOUSPAGE':'dT7sUn7RZVoZ41GfdHOkMywZstCj-Ew5TKVOHQWYKDKw9tNTKN_JsTvJcvfohl8zkLUMHEQfAKHBuyJ_XoXLaB4v3fEZOIVcqgKnrkWn1RXqxduBcnyTwzOexdRD42xx9lQqJw2',\
-'__EVENTVALIDATION':request_token.event_validation,\
-'__ASYNCPOST':'true',\
-'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$btnSearch':'Search'})
+        req_params = urllib.parse.urlencode({'ctl00$ScriptManager1':'ctl00$ContentPlaceHolder1$updPnlAvailabilityCheck|ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$btnSearch', \
+            'ctl00$wctrlLogin$Login1$UserName':'', \
+            'ctl00$wctrlLogin$Login1$Password':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$ddlActivity': self.GAME_BADMINTON, \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$ddlVenue': self.location_code, \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$dateCtl$CalendarPopup1$textBox':play_date, \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$dateCtl$CalendarPopup1$hidden':play_date, \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$dateCtl$CalendarPopup1$validateHidden':validate_hidden_date, \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$dateCtl$CalendarPopup1$enableHidden':'true', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlStart$ddlHour': self.start_time, \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlStart$ddlMin': '00', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlStart$ddlMeridian': start_time_meridian, \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlEnd$ddlHour': self.end_time, \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlEnd$ddlMin': '00', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlEnd$ddlMeridian':end_time_meridian, \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfBookAdv':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfIsSuperiorSubscriber':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfVenueSubscriberType':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfListSearchType':'ORD', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdRepSubscriberId':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdRepActivityId':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdRepSubscriberName':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdRepActivityName':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdIsReplacement':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdIsReplacementReload':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdRepBkgCancelledId':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfCriteriaNotMatch':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfIsBlacklistedHirerBook':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfEffDateFrom':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfEffDateTo':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfIsAdvHrBookingAllowed':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfLeadTimeAccess':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfSubscriberId':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfHirerAge':'', \
+            'hidPrinterStatus':'', \
+            'hidPrinterVerification':'', \
+            'hidNetsStatus':'', \
+            'hidNetsVerfication':'', \
+            'hidEzlinkStatus':'', \
+            'hidEzlinkVerification':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfHiredId':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfHirerType':'', \
+            'ctl00$ContentPlaceHolder1$hdRblSelectedValue':'', \
+            'ctl00$ContentPlaceHolder1$hidAvailTerminals':'', \
+            'hidAvailTerminalsId':'ctl00_ContentPlaceHolder1_hidAvailTerminals', \
+            'ctl00$RESET_SESSION':'NIL', \
+            'ctl00$AccNm':'', \
+            'ctl00$hdfErrMsgAJAX':'', \
+            '__REFRESH_FIELD':'439da2a090068a55acc3954d1d300266', \
+            '__EVENTTARGET':'', \
+            '__EVENTARGUMENT':'', \
+            '__LASTFOCUS':'', \
+            '__VIEWSTATE':request_token.view_state, \
+            '__PREVIOUSPAGE':'dT7sUn7RZVoZ41GfdHOkMywZstCj-Ew5TKVOHQWYKDKw9tNTKN_JsTvJcvfohl8zkLUMHEQfAKHBuyJ_XoXLaB4v3fEZOIVcqgKnrkWn1RXqxduBcnyTwzOexdRD42xx9lQqJw2', \
+            '__EVENTVALIDATION':request_token.event_validation, \
+            '__ASYNCPOST':'true', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$btnSearch':'Search'})
 
-        print(req_params)
-        
-        #build the http request
+        # build the http request
         req_params = req_params.encode('utf-8')
 
         return req_params
@@ -124,14 +120,113 @@ class RequestToken:
         self.view_state = ''
 
     def get_request_tokens(self):
+        #The first request
         request = urllib.request.Request("http://www.icanbook.com.sg/icbnew/Facility/Public/UI/AvailabilityCheck.aspx")
+        request.add_header("Content-Type", "application/x-www-form-urlencoded;charset=utf-8")
+        request.add_header("Referer", "http://www.icanbook.com.sg/icbnew/Facility/Public/UI/AvailabilityCheck.aspx")
+        request.add_header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.116 Safari/537.36")
+        request.add_header("X-MicrosoftAjax", "Delta=true")
+
+        f = urllib.request.urlopen(request)
+        response = f.read().decode('utf-8')
+        soup = BeautifulSoup(response.encode('utf-8'))
+        
+        view_state = soup.select('#__VIEWSTATE')[0]['value']
+        event_validation = soup.select('#__EVENTVALIDATION')[0]['value']
+                
+        current_date = date.today().strftime('%d/%m/%Y')
+        validate_current_date = date.today().strftime('%m/%d/%Y')
+        
+        #Simulate event selection
+        req_params = urllib.parse.urlencode({'ctl00$ScriptManager1':'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$updPnlAvailabilityCheckCtl|ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$ddlActivity', \
+            '__EVENTTARGET':'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$ddlActivity', \
+            '__EVENTARGUMENT':'', \
+            '__LASTFOCUS':'', \
+            '__VIEWSTATE': view_state, \
+            '__PREVIOUSPAGE':'dT7sUn7RZVoZ41GfdHOkMywZstCj-Ew5TKVOHQWYKDKw9tNTKN_JsTvJcvfohl8zkLUMHEQfAKHBuyJ_XoXLaB4v3fEZOIVcqgKnrkWn1RXqxduBcnyTwzOexdRD42xx9lQqJw2', \
+            '__EVENTVALIDATION':event_validation, \
+            'ctl00$wctrlLogin$Login1$UserName':'', \
+            'ctl00$wctrlLogin$Login1$Password':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$ddlActivity':'18', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$ddlVenue':'0', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$dateCtl$CalendarPopup1$textBox':current_date, \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$dateCtl$CalendarPopup1$hidden':current_date, \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$dateCtl$CalendarPopup1$validateHidden':validate_current_date, \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$dateCtl$CalendarPopup1$enableHidden':'true', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlStart$ddlHour':'06', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlStart$ddlMin':'00', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlStart$ddlMeridian':'PM', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlEnd$ddlHour':'10', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlEnd$ddlMin':'00', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlEnd$ddlMeridian':'PM', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfBookAdv':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfIsSuperiorSubscriber':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfVenueSubscriberType':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfListSearchType':'ORD', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdRepSubscriberId':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdRepActivityId':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdRepSubscriberName':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdRepActivityName':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdIsReplacement':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdIsReplacementReload':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdRepBkgCancelledId':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfCriteriaNotMatch':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfIsBlacklistedHirerBook':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfEffDateFrom':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfEffDateTo':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfIsAdvHrBookingAllowed':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfLeadTimeAccess':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfSubscriberId':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfHirerAge':'', \
+            'hidPrinterStatus':'', \
+            'hidPrinterVerification':'', \
+            'hidNetsStatus':'', \
+            'hidNetsVerfication':'', \
+            'hidEzlinkStatus':'', \
+            'hidEzlinkVerification':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfHiredId':'', \
+            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfHirerType':'', \
+            'ctl00$ContentPlaceHolder1$hdRblSelectedValue':'', \
+            'ctl00$ContentPlaceHolder1$hidAvailTerminals':'', \
+            'hidAvailTerminalsId':'ctl00_ContentPlaceHolder1_hidAvailTerminals', \
+            'ctl00$RESET_SESSION':'NIL', \
+            'ctl00$AccNm':'', \
+            'ctl00$hdfErrMsgAJAX':'', \
+            '__REFRESH_FIELD':'1a66b8eba054759d798843c095737b5a', \
+            '__ASYNCPOST':'true'});
+            
+        #Build the http req 
+        request = urllib.request.Request("http://www.icanbook.com.sg/icbnew/Facility/Public/UI/AvailabilityCheck.aspx", data=req_params.encode('utf-8'), method='POST')
         request.add_header("Content-Type","application/x-www-form-urlencoded;charset=utf-8")
+        request.add_header("Origin","http://www.icanbook.com.sg")
+        request.add_header("Cookie","BIGipServerweb_pool_http=JiiuKjZyI/MyXXUtsjus9dXCDEp3VECVjVNDuJP+RVWxYegxCVsdA92TaFnqkBHA6LIK/++0W6ioW04=; ASP.NET_SessionId=3x24ih45ozjftxeg5py0mb45; __utma=24707618.545845258.1373292469.1373292469.1373292469.1; __utmc=24707618; __utmz=24707618.1373292469.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)")
         request.add_header("Referer","http://www.icanbook.com.sg/icbnew/Facility/Public/UI/AvailabilityCheck.aspx")
         request.add_header("User-Agent","Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.116 Safari/537.36")
         request.add_header("X-MicrosoftAjax","Delta=true")
 
         f = urllib.request.urlopen(request)
-        response = f.read().decode('utf-8')
-        soup = BeautifulSoup(response.encode('utf-8'))
-        self.view_state = soup.select('#__VIEWSTATE')[0]['value']
-        self.event_validation = soup.select('#__EVENTVALIDATION')[0]['value']
+        event_selection_response = f.read().decode('utf-8')
+        
+        self.view_state = self.get_token_from_pdr('__VIEWSTATE', event_selection_response)
+        self.event_validation = self.get_token_from_pdr('__EVENTVALIDATION', event_selection_response);
+        
+        
+    '''
+    Retrieve the value of the specified token from a pipe delimited response
+    '''
+    def get_token_from_pdr(self, token_name, partial_html_response):
+        soup_parser = BeautifulSoup(partial_html_response.encode('utf-8'))
+        partial_html = soup_parser.prettify()
+        start_index = partial_html.find(token_name);
+        sub_str = partial_html[start_index + (len(token_name) + 1) : len(partial_html)]
+        
+        end_index = 0
+        for i, val in enumerate(sub_str):
+            if val == '|':
+                end_index = i
+                break
+            
+        sub_str = sub_str[0 : end_index]
+        
+        return sub_str
+        

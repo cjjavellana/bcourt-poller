@@ -1,11 +1,10 @@
 #! /usr/bin/env python3.3
 
-from package import GameDateGenerator
-from package import TimeGenerator
-from package import RequestParamBuilder
-from package import ResponseParser
 
 import urllib.request,urllib.parse
+from package.game_time import GameDateGenerator, TimeGenerator
+from package.resp_parser import ResponseParser
+from package.request_api import RequestParamBuilder
 
 '''
 The class VenueChecker checks for available game slots for the
