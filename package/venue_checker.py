@@ -13,8 +13,9 @@ code
 '''
 class VenueChecker:
     
-    def __init__(self, location_code):
+    def __init__(self, location_code, description):
         self.location_code = location_code
+        self.description = description
         self.avail_time = []
         
     def find_available_time(self):
@@ -46,7 +47,7 @@ class VenueChecker:
                 request.add_header("X-MicrosoftAjax","Delta=true")
 
                 f = urllib.request.urlopen(request)
-                avail_slots = response_parser.parse_response(game_date, f)
+                avail_slots = response_parser.parse_response(game_date, f, self.description)
                 slots.append(avail_slots)
 
 

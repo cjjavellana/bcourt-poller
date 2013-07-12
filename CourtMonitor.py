@@ -26,12 +26,12 @@ print("Checking for available court commencing at " + today.strftime("%d/%m/%Y %
 
 loc_generator = LocationGenerator()
 
-for location in loc_generator.get_locations():
-    venue_checker = VenueChecker(location)
+for location,description in loc_generator.get_locations().items():
+    venue_checker = VenueChecker(location,description)
     query_result = venue_checker.find_available_time()
     
 for result in query_result:
     for available_court in result:
-        print(available_court.date.strftime('%d-%m-%y'), ' ', available_court.court_num, ' - ', available_court.time_slot, ' - ', available_court.status)
+        print(available_court.date.strftime('%d-%m-%y'), available_court.location,' ', available_court.court_num, ' - ', available_court.time_slot, ' - ', available_court.status)
 
 
