@@ -10,7 +10,7 @@ class ResponseParser:
     Parses the Http Response and returns a list of AvailableCourt if
     it finds a court status not equal to 'Not Available Slot'
     '''
-    def parse_response(self, resp):
+    def parse_response(self, date, resp):
         response = resp.read().decode('utf-8');
         soup = BeautifulSoup(response.encode('utf-8'))
         result_table = soup.select('#ctl00_ContentPlaceHolder1_gvAvailabilityCheckResult tr')
@@ -27,14 +27,15 @@ class ResponseParser:
                 status = img_list[0]['title']
                 print(court_num.text, ' ', time_slot.text, ' ', status)
                 if status != 'Not Available Slot':
-                    available_court.append(AvailableCourt(court_num, time_slot, status))
+                    available_court.append(AvailableCourt(date, court_num, time_slot, status))
                 
         return available_court
 
 
 class AvailableCourt:
 
-    def __init__(self, court_num, time_slot, status):
+    def __init__(self, date, court_num, time_slot, status):
+        self.date = date
         self.court_num = court_num
         self.time_slot = time_slot
         self.status = status

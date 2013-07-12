@@ -6,7 +6,7 @@ class TimeGenerator:
     '''
     Valid game time constants. We can only play from 9am - 7pm
     '''
-    valid_time_values = [8,9,10,11,12,13,14,15,16,17,18,19]
+    valid_time_values = [8,9,10,11,12,13,14,15,16,17,18,19,18,19,20]
     
     def __init__(self):
         self.start_time_index = 0
@@ -71,7 +71,7 @@ class GameDateGenerator:
         date_list = list();
         today = date.today()
         
-        while len(date_list) < 4:
+        for x in range(15):
             today = today + timedelta(days=1)
             if today.weekday() == self.SATURDAY or today.weekday() == self.SUNDAY:
                 date_list.append(today);

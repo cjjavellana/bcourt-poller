@@ -27,7 +27,7 @@ class VenueChecker:
         
         time_gen = TimeGenerator();
         for game_date in game_dates:
-            for x in range(9):
+            for x in range(15):
                 time_range = time_gen.get_game_time_frame()
 
                 print('Checking ', self.location_code, '; Start Time: ', \
@@ -46,7 +46,7 @@ class VenueChecker:
                 request.add_header("X-MicrosoftAjax","Delta=true")
 
                 f = urllib.request.urlopen(request)
-                avail_slots = response_parser.parse_response(f)
+                avail_slots = response_parser.parse_response(game_date, f)
                 slots.append(avail_slots)
 
 
