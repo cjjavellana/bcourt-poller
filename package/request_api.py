@@ -60,36 +60,7 @@ class RequestParamBuilder:
             'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlEnd$ddlHour': self.end_time, \
             'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlEnd$ddlMin': '00', \
             'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlEnd$ddlMeridian':end_time_meridian, \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfBookAdv':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfIsSuperiorSubscriber':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfVenueSubscriberType':'', \
             'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfListSearchType':'ORD', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdRepSubscriberId':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdRepActivityId':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdRepSubscriberName':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdRepActivityName':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdIsReplacement':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdIsReplacementReload':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdRepBkgCancelledId':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfCriteriaNotMatch':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfIsBlacklistedHirerBook':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfEffDateFrom':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfEffDateTo':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfIsAdvHrBookingAllowed':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfLeadTimeAccess':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfSubscriberId':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfHirerAge':'', \
-            'hidPrinterStatus':'', \
-            'hidPrinterVerification':'', \
-            'hidNetsStatus':'', \
-            'hidNetsVerfication':'', \
-            'hidEzlinkStatus':'', \
-            'hidEzlinkVerification':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfHiredId':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfHirerType':'', \
-            'ctl00$ContentPlaceHolder1$hdRblSelectedValue':'', \
-            'ctl00$ContentPlaceHolder1$hidAvailTerminals':'', \
-            'hidAvailTerminalsId':'ctl00_ContentPlaceHolder1_hidAvailTerminals', \
             'ctl00$RESET_SESSION':'NIL', \
             'ctl00$AccNm':'', \
             'ctl00$hdfErrMsgAJAX':'', \
