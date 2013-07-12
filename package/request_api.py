@@ -9,14 +9,13 @@ class RequestParamBuilder:
     GAME_BADMINTON = '18'
     NOON = 12
     
-    def __init__(self, game_date, start_time, end_time, location_code):
-        self.game_date = game_date
-        self.start_time = start_time
-        self.end_time = end_time
-        self.location_code = location_code
-        
-        self.request_token = RequestTokenGenerator();
-        self.request_token.get_request_tokens()
+    def __init__(self, request_parameters):
+        self.game_date = request_parameters.game_date
+        self.start_time = request_parameters.start_time
+        self.end_time = request_parameters.end_time
+        self.location_code = request_parameters.location_code
+        self.view_state = request_parameters.view_state
+        self.event_validation = request_parameters.event_validation
         
     def build_http_param(self):
         play_date = self.game_date.strftime('%d/%m/%Y')
@@ -98,9 +97,9 @@ class RequestParamBuilder:
             '__EVENTTARGET':'', \
             '__EVENTARGUMENT':'', \
             '__LASTFOCUS':'', \
-            '__VIEWSTATE': self.request_token.view_state, \
+            '__VIEWSTATE': self.view_state, \
             '__PREVIOUSPAGE':'dT7sUn7RZVoZ41GfdHOkMywZstCj-Ew5TKVOHQWYKDKw9tNTKN_JsTvJcvfohl8zkLUMHEQfAKHBuyJ_XoXLaB4v3fEZOIVcqgKnrkWn1RXqxduBcnyTwzOexdRD42xx9lQqJw2', \
-            '__EVENTVALIDATION':self.request_token.event_validation, \
+            '__EVENTVALIDATION':self.event_validation, \
             '__ASYNCPOST':'true', \
             'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$btnSearch':'Search'})
 
@@ -110,10 +109,24 @@ class RequestParamBuilder:
         return req_params
 
 '''
+A container for the http request parameters
+'''
+class RequestParameters:
+    
+    def __init__(self):
+        self.game_date = ''
+        self.start_time = ''
+        self.end_time = ''
+        self.location_code = ''
+        self.view_state = ''
+        self.event_validation = ''
+        
+
+'''
 This class retrieves the __EVENTVALIDATION and __VIEWSTATE token from the initial page to be used in the subsequent
 request for get available slots.
 '''
-class RequestTokenGenerator:
+class RequestTokenExtractor:
     
     def __init__(self):
         self.event_validation = ''
@@ -178,14 +191,14 @@ class RequestTokenGenerator:
         f = urllib.request.urlopen(request)
         event_selection_response = f.read().decode('utf-8')
         
-        self.view_state = self.get_token_from_pdr('__VIEWSTATE', event_selection_response)
-        self.event_validation = self.get_token_from_pdr('__EVENTVALIDATION', event_selection_response);
+        self.view_state = self.__get_token_from_pdr('__VIEWSTATE', event_selection_response)
+        self.event_validation = self.__get_token_from_pdr('__EVENTVALIDATION', event_selection_response);
         
         
     '''
     Retrieve the value of the specified token from a pipe delimited response
     '''
-    def get_token_from_pdr(self, token_name, partial_html_response):
+    def __get_token_from_pdr(self, token_name, partial_html_response):
         soup_parser = BeautifulSoup(partial_html_response.encode('utf-8'))
         partial_html = soup_parser.prettify()
         start_index = partial_html.find(token_name);

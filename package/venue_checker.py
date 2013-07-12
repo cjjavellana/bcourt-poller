@@ -4,7 +4,8 @@
 import urllib.request,urllib.parse
 from package.game_time import GameDateGenerator, TimeGenerator
 from package.resp_parser import ResponseParser
-from package.request_api import RequestParamBuilder
+from package.request_api import RequestParamBuilder, RequestParameters,\
+    RequestTokenExtractor
 
 '''
 The class VenueChecker checks for available game slots for the
@@ -23,10 +24,14 @@ class VenueChecker:
         game_dates = date_gen.get_game_date();
 
         response_parser = ResponseParser()
-
+        time_gen = TimeGenerator();
+        
+        request_token = RequestTokenExtractor()
+        request_token.get_request_tokens()
+        
         slots = list()
         
-        time_gen = TimeGenerator();
+       
         for game_date in game_dates:
             for x in range(15):
                 time_range = time_gen.get_game_time_frame()
@@ -34,7 +39,15 @@ class VenueChecker:
                 print('Checking ', self.location_code, '; Start Time: ', \
                       str(time_range.start_time), '; End Time: ', str(time_range.end_time))
                 
-                request_builder = RequestParamBuilder(game_date,time_range.start_time,time_range.end_time,self.location_code)
+                params = RequestParameters()
+                params.game_date = game_date
+                params.start_time = time_range.start_time
+                params.end_time = time_range.end_time
+                params.location_code = self.location_code
+                params.view_state = request_token.view_state
+                params.event_validation = request_token.event_validation
+               
+                request_builder = RequestParamBuilder(params)
                 req_params = request_builder.build_http_param();
 
                 #Build the http req 
