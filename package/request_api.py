@@ -15,6 +15,9 @@ class RequestParamBuilder:
         self.end_time = end_time
         self.location_code = location_code
         
+        self.request_token = RequestTokenGenerator();
+        self.request_token.get_request_tokens()
+        
     def build_http_param(self):
         play_date = self.game_date.strftime('%d/%m/%Y')
         validate_hidden_date = self.game_date.strftime('%m/%d/%Y')
@@ -42,9 +45,7 @@ class RequestParamBuilder:
         print('start_time: ', self.start_time, 'end_time:', self.end_time)
         print('start_time_meridian: ', start_time_meridian, 'end_time_meridian:', end_time_meridian)
 
-        request_token = RequestToken();
-        request_token.get_request_tokens()
-        
+       
         req_params = urllib.parse.urlencode({'ctl00$ScriptManager1':'ctl00$ContentPlaceHolder1$updPnlAvailabilityCheck|ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$btnSearch', \
             'ctl00$wctrlLogin$Login1$UserName':'', \
             'ctl00$wctrlLogin$Login1$Password':'', \
@@ -97,9 +98,9 @@ class RequestParamBuilder:
             '__EVENTTARGET':'', \
             '__EVENTARGUMENT':'', \
             '__LASTFOCUS':'', \
-            '__VIEWSTATE':request_token.view_state, \
+            '__VIEWSTATE': self.request_token.view_state, \
             '__PREVIOUSPAGE':'dT7sUn7RZVoZ41GfdHOkMywZstCj-Ew5TKVOHQWYKDKw9tNTKN_JsTvJcvfohl8zkLUMHEQfAKHBuyJ_XoXLaB4v3fEZOIVcqgKnrkWn1RXqxduBcnyTwzOexdRD42xx9lQqJw2', \
-            '__EVENTVALIDATION':request_token.event_validation, \
+            '__EVENTVALIDATION':self.request_token.event_validation, \
             '__ASYNCPOST':'true', \
             'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$btnSearch':'Search'})
 
@@ -112,7 +113,7 @@ class RequestParamBuilder:
 This class retrieves the __EVENTVALIDATION and __VIEWSTATE token from the initial page to be used in the subsequent
 request for get available slots.
 '''
-class RequestToken:
+class RequestTokenGenerator:
     
     def __init__(self):
         self.event_validation = ''
@@ -158,36 +159,7 @@ class RequestToken:
             'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlEnd$ddlHour':'10', \
             'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlEnd$ddlMin':'00', \
             'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$timeCtlEnd$ddlMeridian':'PM', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfBookAdv':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfIsSuperiorSubscriber':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfVenueSubscriberType':'', \
             'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfListSearchType':'ORD', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdRepSubscriberId':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdRepActivityId':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdRepSubscriberName':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdRepActivityName':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdIsReplacement':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdIsReplacementReload':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdRepBkgCancelledId':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfCriteriaNotMatch':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfIsBlacklistedHirerBook':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfEffDateFrom':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfEffDateTo':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfIsAdvHrBookingAllowed':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfLeadTimeAccess':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfSubscriberId':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfHirerAge':'', \
-            'hidPrinterStatus':'', \
-            'hidPrinterVerification':'', \
-            'hidNetsStatus':'', \
-            'hidNetsVerfication':'', \
-            'hidEzlinkStatus':'', \
-            'hidEzlinkVerification':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfHiredId':'', \
-            'ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$hdfHirerType':'', \
-            'ctl00$ContentPlaceHolder1$hdRblSelectedValue':'', \
-            'ctl00$ContentPlaceHolder1$hidAvailTerminals':'', \
-            'hidAvailTerminalsId':'ctl00_ContentPlaceHolder1_hidAvailTerminals', \
             'ctl00$RESET_SESSION':'NIL', \
             'ctl00$AccNm':'', \
             'ctl00$hdfErrMsgAJAX':'', \

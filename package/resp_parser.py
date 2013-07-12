@@ -7,7 +7,7 @@ Parser for the Http Response
 class ResponseParser:
 
     '''
-    Parses the Http Response and returns a list of AvailableCourt if
+    Parses the Http Response and returns a list of CourtStatus if
     it finds a court status not equal to 'Not Available Slot'
     '''
     def parse_response(self, date, resp):
@@ -27,12 +27,12 @@ class ResponseParser:
                 status = img_list[0]['title']
                 print(court_num.text, ' ', time_slot.text, ' ', status)
                 if status != 'Not Available Slot':
-                    available_court.append(AvailableCourt(date, court_num, time_slot, status))
+                    available_court.append(CourtStatus(date, court_num.text, time_slot.text, status))
                 
         return available_court
 
 
-class AvailableCourt:
+class CourtStatus:
 
     def __init__(self, date, court_num, time_slot, status):
         self.date = date
