@@ -25,8 +25,9 @@ class ResponseParser:
                 court_num = child.select('td span')[0]
                 time_slot = child.select('td span')[1]
                 status = img_list[0]['title']
-                print(court_num.text, ' ', time_slot.text, ' ', status)
+                #print(court_num.text, ' ', time_slot.text, ' ', status)
                 if status != 'Not Available Slot':
+                    print('Probable location found on ', date.strftime('%d/%m/%y'), time_slot.text, ' at ', description, ' ', court_num.text, ' status ', status)
                     available_court.append(CourtStatus(date, description, court_num.text, time_slot.text, status))
                 
         return available_court

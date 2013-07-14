@@ -17,7 +17,6 @@ class VenueChecker:
     def __init__(self, location_code, description):
         self.location_code = location_code
         self.description = description
-        self.avail_time = []
         
     def find_available_time(self):
         date_gen = GameDateGenerator();
@@ -36,7 +35,7 @@ class VenueChecker:
             for x in range(15):
                 time_range = time_gen.get_game_time_frame()
 
-                print('Checking ', self.location_code, '; Start Time: ', \
+                print('Checking ', self.location_code, game_date.strftime('%d/%m/%y'), '; Start Time: ', \
                       str(time_range.start_time), '; End Time: ', str(time_range.end_time))
                 
                 params = RequestParameters()

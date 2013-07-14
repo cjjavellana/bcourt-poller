@@ -26,25 +26,16 @@ class RequestParamBuilder:
 
         if self.start_time >= self.NOON:
             start_time_meridian = 'PM'
-            if self.start_time > self.NOON:
-                self.start_time = self.start_time - self.NOON  # Normalize
+            if self.start_time > self.NOON: self.start_time = self.start_time - self.NOON  # Normalize
 
         if self.end_time >= self.NOON:
             end_time_meridian = 'PM'
-            if self.end_time > self.NOON:
-                self.end_time = self.end_time - self.NOON 
+            if self.end_time > self.NOON: self.end_time = self.end_time - self.NOON 
 
-        if self.start_time < 10:
-            self.start_time = '0' + str(self.start_time)
+        if self.start_time < 10: self.start_time = '0' + str(self.start_time)
 
-        if self.end_time < 10:
-            self.end_time = '0' + str(self.end_time)
-        
-        print('PlayDate: ', play_date, 'validate_hidden_date:', validate_hidden_date)
-        print('start_time: ', self.start_time, 'end_time:', self.end_time)
-        print('start_time_meridian: ', start_time_meridian, 'end_time_meridian:', end_time_meridian)
-
-       
+        if self.end_time < 10: self.end_time = '0' + str(self.end_time)
+           
         req_params = urllib.parse.urlencode({'ctl00$ScriptManager1':'ctl00$ContentPlaceHolder1$updPnlAvailabilityCheck|ctl00$ContentPlaceHolder1$AvailabilityCheckCtl$btnSearch', \
             'ctl00$wctrlLogin$Login1$UserName':'', \
             'ctl00$wctrlLogin$Login1$Password':'', \
@@ -167,6 +158,8 @@ class RequestTokenExtractor:
         
         
     '''
+    Internal method. Do not use.
+    
     Retrieve the value of the specified token from a pipe delimited response
     '''
     def __get_token_from_pdr(self, token_name, partial_html_response):
