@@ -26,12 +26,16 @@ print("Checking for available court commencing at " + today.strftime("%d/%m/%Y %
 
 loc_generator = LocationGenerator()
 
+query_result = list()
 for location,description in loc_generator.get_locations().items():
+    print ('Checking location: ', description)
     venue_checker = VenueChecker(location,description)
-    query_result = venue_checker.find_available_time()
-    
-for result in query_result:
-    for available_court in result:
-        print(available_court.date.strftime('%d-%m-%y'), available_court.location,' ', available_court.court_num, ' - ', available_court.time_slot, ' - ', available_court.status)
+    query_result.append(venue_checker.find_available_time())
+
+# Display the mined data
+for i in query_result:
+    for j in i:
+        for k in j:
+            print(k.date.strftime('%d-%m-%y'), k.location,' ', k.court_num, ' - ', k.time_slot, ' - ', k.status)
 
 
