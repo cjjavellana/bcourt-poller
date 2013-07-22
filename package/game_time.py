@@ -8,6 +8,9 @@ class TimeGenerator:
     '''
     valid_time_values = [8,9,10,11,12,13,14,15,16,17,18,19,18,19,20]
     
+    START_TIME = 9
+    END_TIME = 20
+    
     def __init__(self):
         self.start_time_index = 0
 
@@ -15,19 +18,11 @@ class TimeGenerator:
     Retrieves a two-hour time frame
     '''
     def get_game_time_frame(self):
-        
-        # Check if the index pointer is at the 2nd to the last position
-        if self.start_time_index == len(self.valid_time_values) - 2:
-            self.start_time_index = 0 
-        
-        #Create new TimeRange object
-        time_range = TimeRange(self.valid_time_values[self.start_time_index], \
-                               self.valid_time_values[self.start_time_index + 2])
-        
-        #Move the index pointer 1 position forward
-        self.start_time_index += 1
+        time_range_list = list();
+        for time in range(self.START_TIME, self.END_TIME, 2):
+            time_range_list.append(TimeRange(time, time + 2))
 
-        return time_range
+        return time_range_list
 
 
 '''

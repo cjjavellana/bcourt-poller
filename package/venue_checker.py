@@ -30,11 +30,9 @@ class VenueChecker:
         
         slots = list()
         
-       
+        
         for game_date in game_dates:
-            for x in range(15):
-                time_range = time_gen.get_game_time_frame()
-
+            for time_range in time_gen.get_game_time_frame():
                 print('Checking ', self.location_code, game_date.strftime('%d/%m/%y'), '; Start Time: ', \
                       str(time_range.start_time), '; End Time: ', str(time_range.end_time))
                 
